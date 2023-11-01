@@ -1,0 +1,52 @@
+<div class="main-container">
+  <div class="row min-height-600 no-flex-wrap">
+    <div class="card col-md-10 ps-0 pe-0 bg-main border-none">
+      <div class="col ps-0 pe-0 d-flex flex-column justify-content-between">
+        <div class="card  p-3 mb-2 min-height-80 ">
+          <div class="row">
+            <div class="col-md-9">
+              <div class="input-group ">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+                  <label for="floatingInputGroup1">Username</label>
+                </div>
+                <span class="input-group-text"><em class="fas fa-search"></em></span>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ fullName }}
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item btn text-dark btn-outline-light" [routerLink]="'/profile'"  >
+                        <em class="fas fa-user"></em>&nbsp; Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item btn text-dark btn-outline-light" (click)="logout()">
+                        <em class="fas fa-sign-out"></em>&nbsp;
+                        Sign Out
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="card mb-2" style="min-height: 450px">
+          <router-outlet></router-outlet>
+        </div>
+        <div class="card min-height-80">
+          footer
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

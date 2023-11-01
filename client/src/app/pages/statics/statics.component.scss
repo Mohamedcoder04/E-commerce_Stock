@@ -1,0 +1,41 @@
+
+.middle-section {
+  display: flex;
+  justify-content: space-between;
+  .widget {
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 0px 10px;
+  }
+}
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  .widget {
+    height: 250px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 10px;
+    &.left {
+      width: 670px;
+      @media only screen and (max-width: 1200px) {
+        width: 570px;
+      }
+    }
+    &.right {
+      width: 670px;
+      @media only screen and (max-width: 1600px) {
+        width: 570px;
+      }
+      @media only screen and (max-width: 1500px) {
+        width: 470px;
+      }
+      @media only screen and (max-width: 1400px) {
+        width: 370px;
+      }
+      @media only screen and (max-width: 1200px) {
+        width: 370px;
+      }
+    }
+  }
+}

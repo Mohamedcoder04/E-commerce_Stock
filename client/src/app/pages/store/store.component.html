@@ -1,0 +1,149 @@
+<header>
+  <!-- NavBar -->
+  <nav class="navbar navbar-expand-lg bg-main border-bottom  ">
+    <div class="container">
+      <div class="col-md-3">
+        <a class="navbar-brand fs-2 fw-bold" [routerLink]="'/store/'">
+          <i class="fa fa-cart-shopping fs-2" style="color: #f54242;"></i>
+          <span class="textBlur ms-2">jad-shop</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <!--Toggle  -->
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="col-md-5 mt-1 mb-1">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <input #search class="form-control" type="search" placeholder="Search"
+                 (keyup.enter)="searchProduct(search)"
+                 aria-label="Search">
+        </div>
+      </div>
+
+      <!-- Nav Items -->
+      <div class="col-md-4">
+        <div class="collapse navbar-collapse" id="navbarSupport">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0  text-center ">
+
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-uppercase  me-1 text-danger" [routerLink]="'/store/'"
+                 id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                home
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle fw-semibold text-uppercase text-black  me-1"
+                 id="navbarDropdown2"
+                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categories
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" *ngFor="let c of categories" style="cursor: pointer" (click)="toCategorie(c.id)" >{{ c.designation }}</a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-uppercase text-black  me-1" [routerLink]="'/store/contact'">Contact us</a>
+            </li>
+
+            <li class="nav-item" *ngIf="!isLogin">
+              <a class="nav-link fw-semibold text-uppercase text-black  me-1" style="cursor: pointer" (click)="login()">Login</a>
+            </li>
+
+
+            <li class="nav-item dropdown" *ngIf="isLogin">
+              <a class="nav-link dropdown-toggle cart fw-semibold text-uppercase text-black  me-1" href="#"
+                 id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-cart-shopping fs-5" style="color: #202122;"></i>
+                <span class="position-absolute  translate-middle badge rounded-pill bg-danger">
+               {{cartProducts.length}}
+                  <span class="visually-hidden">unread messages</span>
+              </span>
+              </a>
+              <div class="dropdown-menu p-3">
+                <div class="CartContainer" >
+                  <div class="row  border-bottom pb-2">
+                    <div class="col-6 ">
+                      <strong>Your Cart</strong>
+                    </div>
+                    <div class="col-6 text-end text-danger" (click)="deleteAll()" style="cursor: pointer">
+                        Remove All
+                    </div>
+                  </div>
+
+                  <div class="row align-items-center pt-3" *ngFor="let cart of cartProducts">
+                    <div class="col-2">
+                      <img class="card-img-top" style="width : 30px ; height: 30px;border-radius: 10px;"
+                           [src]="cart.product?.photo">
+                    </div>
+                    <div class="col-5 text-start">
+                      {{cart.product && cart.product.designation ? cart.product.designation.substring(0,10)+'...' : ''}}
+                    </div>
+                    <div class="col-2">
+                      {{cart.quantity ? cart.quantity : 0}}
+                    </div>
+                    <div class="col-2 text-end">
+                      $&nbsp;{{ cart.product?.prixUnitaireHt}}
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row controls ">
+                    <div class="col-md-6 text-center">
+                      <button (click)="goToCart()" class="btn btn-primary">Go to Cart</button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                      <button [disabled]="cartProducts.length == 0" (click)="activatePurchase()" class="btn"
+                              style="background-color: #17a2b8 !important;color: white ">Checkout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li *ngIf="isLogin" class="nav-item dropdown">
+              <a class="nav-link fw-semibold text-black dropdown-toggle me-1" href="#" role="button"
+                 data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-user"></i>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item btn text-dark btn-outline-light" href="javascript:void(0);"
+                     (click)="toProfile()">
+                    <em class="fas fa-user"></em>&nbsp; Profile
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item btn text-dark btn-outline-light" href="javascript:void(0);"
+                     (click)="toOrders(userId)">
+                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                    My Orders
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item btn text-dark btn-outline-light" (click)="logout()">
+                    <em class="fas fa-sign-out"></em>&nbsp;
+                    Sign Out
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div style="min-height: 500px">
+  <router-outlet></router-outlet>
+</div>
+<div class="text-center mt-5">
+  <app-footer-store></app-footer-store>
+</div>

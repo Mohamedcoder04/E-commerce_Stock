@@ -1,0 +1,24 @@
+/* Styles pour le bouton de tri Prix */
+.price-button {
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.price-button i {
+  margin-left: 5px;
+  font-size: 12px;
+  transition: transform 0.2s;
+}
+
+/* Styles pour changer la direction et la couleur de la flèche */
+.price-button.asc i {
+  transform: rotate(180deg);
+  color: red; /* Couleur pour l'ordre ascendant */
+}
+
+.price-button.desc i {
+  transform: rotate(0deg);
+  color: green; /* Couleur pour l'ordre descendant */
+}

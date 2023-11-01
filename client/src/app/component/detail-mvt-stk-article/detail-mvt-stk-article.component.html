@@ -1,0 +1,99 @@
+<div class="row m-1 custom-border pt-1 pb-1">
+  <div class="col-md-1 p-0 border-right">
+    <img class="mt-2" [src]="product.photo ? product.photo : 'assets/new-product.png'" width="80px">
+  </div>
+
+  <!-- Détails articles -->
+  <div class="col-md-6 border-right">
+    <div class="col">
+      <div class="d-flex flex-row">
+        <div class="col-md-1"><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="row col-md-11">
+          <div class="col-md-4 text-end"> Code :</div>
+          <div class="col-md-8 text-primary"> {{ product.codeProduit ? product.codeProduit.substring(0,30)+'...' : '' }}</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row">
+        <div class="col-md-1"><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="row col-md-11">
+          <div class="col-md-4 text-end">Désignation :</div>
+          <div class="col-md-8 text-primary">{{ product.designation ? product.designation.substring(0,30)+'...' : product.designation }}</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row ">
+        <div class="col-md-1 "><i class="fas fa-dollar-sign  blue-color"></i></div>
+        <div class="row col-md-11">
+          <div class="col-md-4 text-end">PrixHT : </div>
+          <div class="col-md-8 text-primary">{{ product.prixUnitaireHt }} $</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row">
+        <div class="col-md-1 "><i class="fas fa-dollar-sign  blue-color"></i></div>
+        <div class="row col-md-11">
+          <div class="col-md-4 text-end">PrixTTC : </div>
+          <div class="col-md-8 text-primary">{{ product.prixUnitaireTtc }} $</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Details Catégories -->
+
+  <div class="col-md-2 border-right">
+    <div class="row">
+      <div class="col-md-12 ">
+        <h3> Stock actuel </h3>
+      </div>
+      <div class="col-md-12">
+        <h4 class="text-primary"> {{totalStock}} </h4>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Button d'actions -->
+  <div class="col-md-3">
+    <div class="row d-flex mt-3">
+      <button class="btn btn-link text-center" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal'+product.id">
+        <em class="fab fa-stack-overflow"></em>&nbsp;
+        Correction de stock
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal{{product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title col-md-11 text-center fs-5" id="exampleModalLabel">Correction du stock</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <input type="text" class="form-control" placeholder="Quantité" [(ngModel)]="mvstk.quantite" name="quantite">
+          </div>
+          <div class="mb-3">
+            <select class="form-select" [(ngModel)]="typeSelect" name="typeSelect">
+              <option disabled selected>Select</option>
+              <option [value]="'positif'" >Correction positive</option>
+              <option [value]="'negatif'">Correction négative</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <em class="fas fa-cancel"></em>&nbsp;Annuler
+        </button>
+        <button type="button" class="btn btn-primary" (click)="correctionStock(product.id)" data-bs-dismiss="modal">
+          <em class="fas fa-save"></em>&nbsp;Enregistrer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

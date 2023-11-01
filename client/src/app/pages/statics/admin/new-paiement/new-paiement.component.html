@@ -1,0 +1,19 @@
+<div class="card bg-main transactions">
+  <div class="title mb-1"><strong>Last few Sales</strong></div>
+  <div class="transaction-wrapper">
+    <div class="transaction row" *ngFor="let transaction of transactions">
+      <div class="image col-md-1">
+        <img [src]="transaction.imgSrc" alt="" />
+      </div>
+      <div class="title col-md-6 ps-2">{{ transaction.title ? transaction.title.substring(0,25)+'...' : ''  }}</div>
+      <div class="price col-md-3 text-center">${{ transaction.price }}</div>
+      <div class="status col-md-2" [ngClass]="{
+          confirmed: transaction.status === 'VALIDEE',
+          pending: transaction.status === 'EN_PREPARATION',
+          shipped: transaction.status === 'LIVREE'
+        }" >
+        {{ transaction.status === 'EN_PREPARATION' ? 'pending' : 'confirmed' }}
+      </div>
+    </div>
+  </div>
+</div>

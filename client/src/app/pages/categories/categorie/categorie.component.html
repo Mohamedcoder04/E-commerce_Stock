@@ -1,0 +1,92 @@
+<div class="col p-3">
+  <div class="row mb-3">
+    <div class="col-md-7">
+      <h2> Liste des catégories</h2>
+    </div>
+    <div class="col-md-5 justify-content-between">
+      <div class="d-flex">
+        <div class="p-2 flex-fill">
+          <button (click)="inputFile.click()" class="btn btn-warning" type="button">
+            <input hidden #inputFile type="file" (change)="importData($event)">
+            <i class="fas fa-upload"></i>&nbsp; Importer
+          </button>
+        </div>
+
+        <div class="p-2 flex-fill">
+          <button class="btn btn-success" type="button" (click)="exportexcel()">
+            <em class="fas fa-cloud-download-alt"></em>&nbsp;Exporter
+          </button>
+        </div>
+
+        <div class="p-2 flex-fill">
+          <button (click)="nouveauCategorie()" class="btn btn-primary" type="button">
+            <em class="fas fa-plus"></em>&nbsp;Nouveau
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card p-3" *ngIf="categorieDto.length">
+    <div class="col">
+      <div class="custom-border p-2 mb-1"
+           *ngFor="let cat of categorieDto | paginate : {itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index">
+        <div class="row ">
+          <div class="col-md-3 pt-2 border-right ps-4">
+            {{ cat.codeCategory }}
+          </div>
+
+          <div class="col-md-6 pt-2 border-right">
+            {{ cat.designation }}
+          </div>
+          <div class="col-md-3 text-center">
+            <button class="btn btn-warning me-3" (click)="updateCategorie(cat.id)">
+              <em class="fas fa-pencil-alt"></em>
+            </button>
+
+            <button class="btn btn-danger" (click)="changeUserState(cat.id , cat.codeCategory)"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              <em class="fas fa-trash"></em>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-3" *ngIf="categorieDto.length">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+
+    </pagination-controls>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Confirm!</h5>
+        <button (click)="cancelDelete()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Voulez vous vraiment supprimer la Catégorie {{ codeCategorie }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelDelete()" data-bs-dismiss="modal">
+          <em class="fas fa-ban"></em>&nbsp;Annuler
+        </button>
+        <button (click)="deleteCatgorie()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <em class="fas fa-trash"></em>&nbsp;Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

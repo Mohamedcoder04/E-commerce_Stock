@@ -1,0 +1,102 @@
+<div class="row m-1 custom-border pt-1 pb-1">
+  <div class="col-md-1 p-2 text-center border-right">
+    <img [src]="productDto.photo ? productDto.photo : 'assets/new-product.png'" width="80px" height="80px">
+  </div>
+
+  <!-- Détails articles -->
+  <div class="col-md-5 border-right">
+    <div class="col pt-1">
+      <div class="d-flex flex-row">
+        <div class="col-md-1"><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="col-md-11 row">
+          <div class="col-md-4"> Nom Produit : &nbsp;</div>
+          <div class="col-md-8">{{ productDto.codeProduit ? productDto.codeProduit.substring(0 , 35) + '...' : ''  }}</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row">
+        <div class="col-md-1 "><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="col-md-11 row">
+          <div class="col-md-4"> Description : &nbsp;</div>
+          <div class="col-md-8">{{ productDto.designation ? productDto.designation.substring(0 , 30) + '...' : '' }}</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row ">
+        <div class="col-md-1" style="padding-left: 2px"><i class="fas fa-dollar-sign  blue-color"></i></div>
+        <div class="col-md-11 row">
+          <div class="col-md-4"> Prix HT : &nbsp;</div>
+          <div class="col-md-8">{{ productDto.prixUnitaireHt }} $</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row">
+        <div class="col-md-1" style="padding-left: 2px"><i class="fas fa-dollar-sign  blue-color"></i></div>
+        <div class="col-md-11 row">
+          <div class="col-md-4"> Prix TTC : &nbsp;</div>
+          <div class="col-md-8">{{ productDto.prixUnitaireTtc }} $ </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Details Catégories -->
+
+  <div class="col-md-4 pt-3 border-right">
+    <div class="row mt-1 ">
+      <div class="col-md-1">
+        <i class="fas fa-flag-checkered blue-color"></i>
+      </div>
+      <div class="col-md-11">
+          <div class="row mb-2">
+            <div class="col-md-5"> Code catégorie : &nbsp;</div>
+            <div class="col-md-7">{{ productDto.category?.codeCategory }}</div>
+          </div>
+          <div class="row">
+            <div class="col-md-5"> Description : &nbsp;</div>
+            <div class="col-md-7">{{ productDto.category?.designation }}</div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Button d'actions -->
+  <div class="col-md-2">
+  <div class="d-flex col-md-7 mx-auto mt-4 justify-content-between">
+    <button class="btn btn-warning" type="button" (click)="updateArticle()">
+      <em class="fas fa-pencil-alt"></em>
+    </button>
+    <button class="btn btn-danger" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#staticBackdrop'+productDto.id"
+    >
+      <em class="fas fa-trash"></em>
+    </button>
+
+  </div>
+</div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop{{productDto.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Confirm!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Voulez vous vraiment supprimer cet article
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <em class="fas fa-ban"></em>&nbsp;Annuler
+          </button>
+          <button (click)="confirmDeleteArticle()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            <em class="fas fa-trash"></em>&nbsp;Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,95 @@
+<div class="display container mb-5" *ngIf="cartProducts.length > 0">
+  <div class="row">
+    <div style="min-height: 400px !important;" class="cart-info card bg-footer p-3 col-md-8 me-5" >
+      <div class="title">
+        <p class="mb-1">Shopping Cart</p>
+        <span>You have {{cartProducts.length}} item<span *ngIf="cartProducts.length > 1">s</span> in your cart.</span>
+      </div>
+
+      <div class="row item align-items-center" *ngFor="let cartItem of cartProducts">
+
+        <div class="col-md-2 product-image">
+          <img src="{{cartItem.product?.photo}}" alt="{{cartItem.product?.codeProduit}}"
+               (click)="goToItem(cartItem.product?.id)"/>
+        </div>
+
+        <div class="col-md-5 description" (click)="goToItem(cartItem.product?.id)">
+          <span>
+            {{ cartItem.product?.codeProduit}}
+          </span>
+        </div>
+
+        <div class="amount col-md-2 text-center">
+          <input #amount type="number" placeholder="" (change)="changeTotal(cartItem)" name="quantity" [(ngModel)]="cartItem.quantity" min="1">
+        </div>
+
+        <div class="col-md-2 text-center">
+          <span>{{cartItem.product?.prixUnitaireHt}} $</span>
+        </div>
+
+        <div class="col-md-1 delete">
+          <button class="btn btn-danger" (click)="removeItem(cartItem.id)"> <em class="fas fa-trash"></em> </button>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-height: 300px !important;" class="summary card bg-footer p-3 col-md-3">
+      <div class="title">
+        Summary
+      </div>
+      <div class="pricing">
+        <div class="row">
+          <div class="col-md-4 col-4">
+            <span class="label">Cart</span>
+          </div>
+          <div class="col-md-8 col-8">
+            <span>{{ subTotal | number:'1.2' }} €</span>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-md-4 col-4">
+            <span class="label">Shipping</span>
+          </div>
+          <div class="col-md-8 col-8">
+            <span>0.00 €</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="total">
+        <div class="row">
+          <div class="col-md-4 col-4">
+            <span class="label">Total</span>
+          </div>
+          <div class="col-md-8 col-8">
+            <span>{{ subTotal | number:'1.2' }} €</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn" (click)="activatePurchase()">CHECKOUT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+<div class="empty-cart container mb-5" *ngIf="cartProducts.length == 0 ">
+  <div class="row">
+    <div class="col-md-12 col-12 text-center">
+      <span class="fa fa-shopping-cart"></span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-12 text-center">
+      <p>Your cart is empty.</p>
+      <a class="btn home w-50 mb-2" [routerLink]="'/store'">Home page</a>
+    </div>
+  </div>
+</div>
+

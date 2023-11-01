@@ -1,0 +1,14 @@
+export { VenteService } from './services/vente.service';
+export { UtilisateurService } from './services/utilisateur.service';
+export { AuthenticationService } from './services/authentication.service';
+export { ProductService } from './services/product.service';
+export { PhotoService } from './services/photo.service';
+export { PaiementService } from './services/paiement.service';
+export { NotificationService } from './services/notification.service';
+export { MvtStkService } from './services/mvt-stk.service';
+export { FournisseurService } from './services/fournisseur.service';
+export { CommandeFournisseurService } from './services/commande-fournisseur.service';
+export { CommandeClientService } from './services/commande-client.service';
+export { ClientService } from './services/client.service';
+export { CategorieService } from './services/categorie.service';
+export { CartService } from './services/cart.service';

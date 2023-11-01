@@ -1,0 +1,54 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-7 p-0">
+      <h1>Mouvements du stock</h1>
+    </div>
+
+  </div>
+
+  <div class="col m-3"
+       *ngFor="let a of listArticle | paginate : {itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index">
+    <div class="accordion" id="accordionExample{{a.id}}">
+      <div class="card mb-2">
+        <button class="btn btn-light" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse'+a.id" aria-expanded="false" [attr.aria-controls]="'collapse'+a.id"
+                (click)="findAllMvstkByArticle(a.id)">
+
+
+          <app-detail-mvt-stk-article
+            [product]="a"
+            [totalStock]="mapTotalStock.get(a.id)"
+            (updateListMvstk)="updateList($event)"
+          >
+          </app-detail-mvt-stk-article>
+
+
+        </button>
+        <div id="collapse{{a.id}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading'+a.id"
+             [attr.data-bs-parent]="'#accordionExample'+a.id" style="max-height: 200px; overflow-y: scroll">
+          <div class="accordion-body">
+
+
+            <app-detail-mvt-stk
+              *ngFor="let m of mapListMvstk.get(a.id)"
+              [mvtStk]="m"
+            ></app-detail-mvt-stk>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row col-md-12 text-center mb-4" *ngIf="mapListMvstk.size">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+
+    </pagination-controls>
+  </div>
+</div>

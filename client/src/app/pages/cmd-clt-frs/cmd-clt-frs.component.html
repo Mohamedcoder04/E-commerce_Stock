@@ -1,0 +1,59 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-7 p-0">
+      <h1>Commande {{ origin }}</h1>
+    </div>
+    <div class="col-md-5 mt-1 text-end">
+      <app-button-actions *ngIf="origin === 'fournisseur'"
+        [isImporterVisible]="false"
+        [isExporterVisible]="false"
+
+        (clickEvent)="nouveauCommande()"
+      ></app-button-actions>
+    </div>
+  </div>
+
+  <div class="col m-3" *ngFor="let c of listCmdCltFrs | paginate : { itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index">
+    <div class="accordion" id="accordionExample{{ c.id }}">
+      <div class="card mb-2" >
+        <button class="btn btn-light" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+c.id"
+                aria-expanded="false" [attr.aria-controls]="'collapse'+c.id" (click)="findAllLigneCmd(c.id)">
+          <app-detail-cmd-clt-frs
+            [commande]="c"
+            [origin]="origin"
+          ></app-detail-cmd-clt-frs>
+        </button>
+
+        <div id="collapse{{c.id}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading'+c.id"
+             [attr.data-bs-parent]="'#accordionExample'+c.id" style="max-height: 200px; overflow-y: scroll">
+          <div class="accordion-body">
+            <app-detail-cmd
+              *ngFor="let l of lignesCommandes.get(c.id)"
+              [ligneCommande]="l"
+            ></app-detail-cmd>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-6 text-start">
+              <strong> {{ lignesCommandes.get(c.id).length }} articles commandés</strong>
+            </div>
+            <div class="col-md-6 text-end">
+              <strong>Total commande</strong>&nbsp; : {{ calculerTotal(c.id) | number }} $
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row col-md-12 text-center mb-4" *ngIf="listCmdCltFrs.length">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+
+    </pagination-controls>
+  </div>
+</div>

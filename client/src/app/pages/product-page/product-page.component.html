@@ -1,0 +1,73 @@
+<div class="product-detail mt-5 container">
+  <div *ngIf="fetchError">
+    <div class="alert-warning">Problem loading products...</div>
+  </div>
+  <div *ngIf="innerLoading" class="loader"></div>
+  <div *ngIf="innerLoading" style="min-height: 50vh"></div>
+  <div *ngIf="productDto != null && innerLoading == false" class="row pt-5">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+      <img class="product-img img-responsive" src="{{ productDto.photo }}" alt="{{ productDto.codeProduit }}">
+    </div>
+    <div class="col-md-5 mr-auto">
+      <div class="product-description">
+        <span class="category">{{ productDto.category?.codeCategory }}</span>
+        <h1 class="name">{{ productDto.codeProduit}}</h1>
+        <p class="description"> {{ productDto.designation }}</p>
+        <div class="row col-md-8 mx-auto" *ngIf="stock > 0">
+          <div class="amount col-md-10">
+            <div class="row"><span>Quantité</span></div>
+            <input #amount type="number" (change)="changePrix()" placeholder="" name="quantity" [(ngModel)]="cartObj.quantity" min="1" [max]="stock" value="1">
+          </div>
+          <div class="price col-md-2 mt-4">
+            <span>{{ prix }} €</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="add col-md-8 mx-auto mb-4">
+
+            <div *ngIf="stock > 0">
+              <button class="btn btn-success mb-2" (click)="addToCart(productDto)"> Add To Cart</button>
+              <button class="btn" style="background-color: #17a2b8 !important;color: white " (click)="buyNow(productDto.id)"> Buy Now</button>
+            </div>
+
+            <button *ngIf="stock == 0" class="btn btn-warning"> Out Of Stock
+            </button>
+          </div>
+        </div>
+
+        <div class="row text-center">
+          <div class="variant-title col-md-4 {{activeTab === 0 ? 'active': ''}}" (click)="setActiveTab(0)">
+            <p>Variants</p>
+          </div>
+          <div class="product-detail-title col-md-4 {{activeTab === 1 ? 'active': ''}}" (click)="setActiveTab(1)">
+            <p>Detail</p>
+          </div>
+          <div class="delivery-title col-md-4 {{activeTab === 2 ? 'active': ''}}" (click)="setActiveTab(2)">
+            <p>Delivery</p>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="delivery-info col-md-12" *ngIf="activeTab === 2">
+            <div>
+              <span>Orders go out in 1 business day or less.</span>
+            </div>
+            <div>
+              <span>We ship internationally, to most countries.</span>
+            </div>
+            <div>
+              <span>International customers: you will be responsible for paying any CUSTOMS and DUTIES on your
+                order.</span>
+            </div>
+            <div>
+              <p>This is a demo site. Products listed here are only for demonstration purposes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

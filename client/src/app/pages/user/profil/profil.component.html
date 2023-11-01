@@ -1,0 +1,49 @@
+<div [ngClass]="role === 'store' ? 'container' : ''" [style]="role === 'store' ? 'margin-top: 100px ' : ''">
+  <div class="row m-3" >
+    <div style="height: 400px" class="card text-center col p-3 col-md-5 me-4">
+      <div class="mb-2 mt-5">
+        <img [src]="userDto.photo ? userDto.photo : 'assets/inconnu.png'" width="80px">
+      </div>
+      <div class="mb-2 ">
+        <h2> {{ userDto.prenom + ' ' + userDto.nom }} </h2>
+        <small
+          class="form-text text-muted"> {{ userDto.address?.street + ' ' + userDto.address?.city + ' ' + userDto.address?.zipCode  }} </small>
+      </div>
+
+
+      <div class="mt-3">
+        <button class="btn btn-primary me-3" (click)="updateUser(userDto.id)">
+          <em class="fas fa-pencil-alt"></em>&nbsp; Modifier
+        </button>
+        <button class="btn btn-warning text-white" [routerLink]="'/'+ role +'/changer-mot-de-passe'">
+          <em class="fas fa-lock"></em>&nbsp;changer mot de passe
+        </button>
+      </div>
+    </div>
+
+    <div class="card col p-5 col-md-6 ms-5 text-end">
+      <table class="table mt-5">
+        <tbody>
+        <tr>
+          <th class="text-start" scope="row">Nom Complet</th>
+          <td class="text-start">{{ userDto.prenom + ' ' + userDto.nom }}</td>
+        </tr>
+        <tr>
+          <th class="text-start" scope="row">Email</th>
+          <td class="text-start">{{ userDto.email }}</td>
+        </tr>
+        <tr>
+          <th class="text-start" scope="row">Téléphone</th>
+          <td class="text-start" colspan="2">0665353209</td>
+        </tr>
+        <tr>
+          <th class="text-start" scope="row">Adresse</th>
+          <td
+            class="text-start">{{ userDto.address?.street + ' ' + userDto.address?.city + ' ' + userDto.address?.zipCode + ' ' + userDto.address?.country  }}</td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

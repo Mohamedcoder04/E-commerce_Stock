@@ -1,0 +1,46 @@
+<div class="search mt-2 container">
+  <div class="title row">
+    <h3>Search Results :</h3> <p><span class="highlight ps-3">{{products.length}}</span> result<span *ngIf="products.length > 1">s</span> found for the
+      search for
+      <span class="highlight">{{keyword}}</span>
+    </p>
+  </div>
+
+  <div class="row">
+      <div class="col-lg-4 pt-4 search-result" *ngFor="let product of products | paginate : {itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index">
+        <div class="box-shadow">
+          <div class="card" style="cursor: pointer">
+            <img (click)="toProduct(product.id)" class="img-fluid" style="height: 300px; " [src]="product.photo" >
+            <div class="card-body">
+              <h5 class="card-title"><strong>{{product.codeProduit ? product.codeProduit.substring(0,70) +'...' : ''}}</strong></h5>
+              <p class="card-text">
+                <span class="text-danger fw-semibold me-2">${{product.prixUnitaireHt}}</span>
+                <del>${{product.prixUnitaireHt}}</del>
+                <span class="text-success ms-2">35% Off</span>
+              </p>
+
+              <div class="row">
+                <div class="col-6">
+                  <i class="fa-solid fa-star-half-stroke m-0" style="color: #f1f50f;"></i>
+                  <span class="text-muted">(21)</span>
+                </div>
+                <div class="col-6 text-end">
+                  <button class="btn btn-sm btn-success" (click)="addItemToCart(product)">Add To Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="mt-3 text-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+
+    </pagination-controls>
+  </div>
+</div>

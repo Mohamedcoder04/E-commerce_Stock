@@ -1,0 +1,59 @@
+<div
+  [class.col-md-8]="role === 'store'"
+  [class.mx-auto]="role === 'store'"
+  [class.card]="role === 'store'"
+  [class.mt-4]="role === 'store'"
+>
+  <div class="col m-3">
+    <div class="col-md-12 mb-3">
+      <button (click)="inputFile.click()" style="background-color: transparent; border: none">
+        <img [src]="imgUrl" class="rounded-circle" width="200px" height="200px">
+        <input hidden type="file" #inputFile (change)="onFileInput(inputFile.files)">
+      </button>
+    </div>
+    <div class="card p-3 mb-3">
+      <div class="col-md-12 mb-3">
+        <div class="row">
+          <div class="col-md-6">
+            <h2 class="text-start blue-color">
+              <em class="fas fa-info-circle"></em>&nbsp;
+              Information de l'utilisateur
+            </h2>
+          </div>
+
+          <div class="col-md-6">
+            <h2 class="text-start blue-color">
+              <em class="fas fa-home"></em>&nbsp;
+              Adresse de l'utilisateur
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-md-6 border-right">
+          <div class="mb-1"><input class="form-control" placeholder="Nom" [(ngModel)]="user.nom"></div>
+          <div class="mb-1"><input class="form-control" placeholder="Prénom" [(ngModel)]="user.prenom"></div>
+          <div class="mb-1"><input class="form-control" placeholder="E-mail" [(ngModel)]="user.email"></div>
+          <div *ngIf="!pass" class="mb-1"><input type="password" class="form-control" placeholder="password"
+                                                 [(ngModel)]="user.password"></div>
+        </div>
+        <div class="col col-md-6">
+          <div class="mb-1"><input class="form-control" placeholder="Adresse 1" [(ngModel)]="address.street"></div>
+          <div class="mb-1"><input class="form-control" placeholder="Ville" [(ngModel)]="address.city"></div>
+          <div class="mb-1"><input class="form-control" placeholder="Code postal" [(ngModel)]="address.zipCode"></div>
+          <div class="mb-1"><input class="form-control" placeholder="Pays" [(ngModel)]="address.country"></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-end ">
+      <button class="btn btn-danger" type="button" (click)="cancelClick()">
+        <em class="fas fa-cancel"></em>&nbsp;Annuler
+      </button>
+
+      <button class="btn btn-primary ms-5 me-3" type="button" (click)="saveUser()">
+        <em class="fas fa-save"></em>&nbsp;Enregistrer
+      </button>
+    </div>
+  </div>
+</div>

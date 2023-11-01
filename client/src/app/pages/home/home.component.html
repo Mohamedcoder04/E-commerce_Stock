@@ -1,0 +1,95 @@
+<!-- Product Section -->
+<section id="product">
+  <div class="container mt-3">
+    <div class="row">
+      <!-- Product Heading -->
+      <div class="col-12">
+        <div class="productHeading text-center">
+          <h2 class="mb-3">Exclusive Products</h2>
+          <ul class="list-unstyled d-flex justify-content-center">
+            <li><a href="#" class="m-4 text-decoration-none text-danger fw-semibold">New Arrival</a></li>
+            <li><a [routerLink]="'/store/most-selling'" class="m-4 text-decoration-none fw-semibold text-black">Best
+              Sellers</a></li>
+            <li><a href="#" class="m-4 text-decoration-none fw-semibold text-black">Featured</a></li>
+            <li><a href="#" class="m-4 text-decoration-none fw-semibold text-black">Special Offer</a></li>
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="col-12 mt-2">
+
+        <!-- Price Filters -->
+        <div class="row">
+          <div class="col-md-1 text-end" style="padding-top: 7px; font-size: 16px"><strong>Price :</strong></div>
+          <div class="min col-md-1">
+            <input type="text" class="form-control" name="minPrice" placeholder="min" [(ngModel)]="minPrice"
+                   (click)="onInputChange()">
+          </div>
+          <div class="max col-md-1">
+            <input type="text" class="form-control" name="maxPrice" placeholder="max" [(ngModel)]="maxPrice"
+                   (click)="onInputChange()">
+          </div>
+          <div class="col-md-2 row">
+            <div class="col-md-4"  *ngIf="showButton">
+              <button (click)="searchProduct()" type="submit" class="btn"
+                      style="background-color: #17a2b8 !important;color: white ">OK
+              </button>
+            </div >
+            <div class="col-md-4"  *ngIf="showButton">
+              <button (click)="remove()" type="submit" class="btn btn-danger"><em class="fas fa-trash"></em></button>
+            </div>
+          </div>
+          <!-- Empty Column -->
+          <div class="col-md-6 ps-3"></div>
+          <!-- Sort Button -->
+          <div class="col-md-1">
+            <button class="btn btn-light price-button" (click)="togglePriceSort()" [ngClass]="getButtonClass()">
+              Price
+              <i class="fas fa-sort"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Product Cards -->
+        <div class="row">
+          <div class="col-lg-4 pt-3"
+               *ngFor="let product of listProduct | paginate : {itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index">
+            <div class="box-shadow">
+              <div class="card" style="cursor: pointer">
+                <img (click)="toProduct(product.id)" class="img-fluid" style="height: 300px; " [src]="product.photo">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <strong>{{product.codeProduit ? product.codeProduit.substring(0, 70) + '...' : ''}}</strong>
+                  </h5>
+                  <p class="card-text">
+                    <span class="text-danger fw-semibold me-2">$ {{product.prixUnitaireHt}}</span>
+                    <del>$ {{ product.prixUnitaireTtc | number: '1.0-0' }}</del>
+                    <span class="text-success ms-2">35% Off</span>
+                  </p>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <i class="fa-solid fa-star-half-stroke m-0" style="color: #f1f50f;"></i>
+                      <span class="text-muted">(21)</span>
+                    </div>
+                    <div class="col-6 text-end">
+                      <button class="btn btn-sm btn-success" (click)="addItemToCart(product)">Add To Cart</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Pagination Controls -->
+        <div class="mt-3 text-center">
+          <pagination-controls previousLabel="Prev" nextLabel="Next"
+                               (pageChange)="onTableDataChange($event)"></pagination-controls>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>

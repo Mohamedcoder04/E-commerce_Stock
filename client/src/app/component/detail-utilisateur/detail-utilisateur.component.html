@@ -1,0 +1,94 @@
+<div class="row m-1 custom-border pt-1 pb-1">
+  <div class="col-md-1 p-2 text-center border-right">
+    <img [src]="user.photo ? user.photo : 'assets/inconnu.png'" width="80px">
+  </div>
+
+  <!-- Détail client -->
+  <div class="col-md-4 border-right mt-2">
+    <div class="col">
+      <div class="d-flex mb-2 flex-row">
+        <div class="col-md-1"><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="col-md-11"> {{ user.prenom }} </div>
+      </div>
+      <div class="d-flex mb-2 flex-row">
+        <div class="col-md-1"><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="col-md-11"> {{ user.nom }}  </div>
+      </div>
+      <div class="d-flex mb-2 flex-row">
+        <div class="col-md-1"><i class="fa fa-envelope-circle-check blue-color"></i></div>
+        <div class="col-md-11"> {{ user.email }}  </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- adresse client -->
+
+  <div class="col-md-4 border-right mt-2">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row mb-2">
+          <div class="col-md-1">
+            <i class="fas fa-home blue-color"></i>
+          </div>
+          <div class="col-md-11"> {{ user.address?.street }} </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row mb-2">
+          <div class="col-md-1">
+            <i class="fas fa-map-marker-alt blue-color"></i>
+          </div>
+          <div class="col-md-11">  {{ user.address?.zipCode }}&nbsp; {{ user.address?.city }}  </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row mb-2">
+          <div class="col-md-1">
+            <i class="fas fa-globe-africa blue-color"></i>
+          </div>
+          <div class="col-md-11">  {{ user.address?.country }} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Button d'actions -->
+  <div class="col-md-3 ">
+    <div class="mt-4 text-center">
+      <button class="btn btn-warning me-3" type="button" (click)="updateUser(user.id)">
+        <em class="fas fa-pencil-alt"></em>&nbsp;
+      </button>
+      <button class="btn btn-danger" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#staticBackdrop'+user.id">
+        <em class="fas fa-trash"></em>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop{{user.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Confirm!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Voulez vous vraiment supprimer "{{ user.prenom && user.nom ? user.prenom + user.nom : '' }}"
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelDelete()">
+          <em class="fas fa-ban"></em>&nbsp;Annuler
+        </button>
+        <button (click)="deleteUser()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <em class="fas fa-trash"></em>&nbsp;Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

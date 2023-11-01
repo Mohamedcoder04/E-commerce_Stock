@@ -1,0 +1,55 @@
+<div class="col m-3">
+   <div class="col-md-12 mb-3">
+     <button (click)="inputFile.click()" style="background-color: transparent; border: none">
+       <img [src]="imgUrl" class="rounded-circle" width="200px" height="200px">
+       <input hidden type="file" #inputFile (change)="onFileInput(inputFile.files)">
+     </button>
+   </div>
+  <div class="card p-3 mb-3">
+    <div class="col-md-12 mb-3">
+      <h2 class="text-start blue-color">
+        <em class="fas fa-info-circle"></em>&nbsp;
+        Information de Produit
+      </h2>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <input class="form-control" placeholder="Code produit" [(ngModel)]="articleDto.codeProduit">
+      </div>
+
+      <div class="col-md-6">
+        <input class="form-control" placeholder="Désignation" [(ngModel)]="articleDto.designation">
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <input class="form-control" placeholder="Prix unitaire HT" [(ngModel)]="articleDto.prixUnitaireHt" (input)="calculerTTC()">
+      </div>
+
+      <div class="col-md-6">
+        <input class="form-control" placeholder="Taux TVA" [(ngModel)]="articleDto.tauxTva" (input)="calculerTTC()">
+      </div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <input class="form-control" placeholder="Prix unitaire TTC" [(ngModel)]="articleDto.prixUnitaireTtc">
+      </div>
+
+      <div class="col-md-6">
+        <select [(ngModel)]="categorieDto.id" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+          <option selected disabled>Sélectionner une catégorie</option>
+          <option *ngFor="let cat of listeCategories" [value]="cat.id">{{ cat.codeCategory }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="text-end ">
+    <button class="btn btn-danger" type="button" (click)="cancelClick()">
+      <em class="fas fa-cancel"></em>&nbsp;Annuler
+    </button>
+
+    <button class="btn btn-primary ms-5 me-3" type="button" (click)="addArticle()">
+      <em class="fas fa-save"></em>&nbsp;Enregistrer
+    </button>
+  </div>
+</div>

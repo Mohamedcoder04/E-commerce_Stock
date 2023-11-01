@@ -1,0 +1,49 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-7 mt-2 p-0">
+      <h1>Liste des Produits</h1>
+    </div>
+    <div class="col-md-5 justify-content-between">
+      <div class="d-flex">
+        <div class="p-2 flex-fill">
+          <button (click)="inputFile.click()" class="btn btn-warning" type="button" >
+            <input hidden #inputFile type="file" (change)="importData($event)">
+            <i class="fas fa-upload"></i>&nbsp; Importer
+          </button>
+        </div>
+
+        <div class="p-2 flex-fill">
+          <button class="btn btn-success" type="button" (click)="exportexcel()">
+            <em class="fas fa-cloud-download-alt"></em>&nbsp;Exporter
+          </button>
+        </div>
+
+        <div class="p-2 flex-fill">
+          <button (click)="nouvelArticle()" class="btn btn-primary" type="button">
+            <em class="fas fa-plus"></em>&nbsp;Nouveau
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-danger" *ngIf="errorMsg.length">
+    <p *ngFor="let msg of errorMsg"> {{ msg }} </p>
+  </div>
+  <div class="col m-3">
+
+    <app-detail-article id="excel-table"
+      *ngFor="let a of articles | paginate : {itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index" [productDto]="a"
+      (deleteArticle)="suppression($event)"
+    ></app-detail-article>
+
+  </div>
+
+  <div class="row col-md-12 text-center mb-4" *ngIf="articles.length">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div>
+</div>

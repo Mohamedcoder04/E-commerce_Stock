@@ -1,0 +1,47 @@
+<div class="container my-container">
+  <div class=" card">
+    <div class="card-header text-center">
+      <h1> Register </h1>
+    </div>
+    <div class="p-3">
+      <div class="mb-2">
+        <input type="text" class="form-control" placeholder="Prénom" [(ngModel)]="userDto.prenom">
+      </div>
+      <div class="mb-2">
+        <input type="text" class="form-control" placeholder="Nom" [(ngModel)]="userDto.nom">
+      </div>
+      <div class="mb-2">
+        <input type="email" class="form-control"  placeholder="exemple@gmail.com" [(ngModel)]="userDto.email">
+      </div>
+      <div class="mb-2">
+        <input type="email" class="form-control"  placeholder="Téléphone" [(ngModel)]="userDto.telephone">
+      </div>
+      <div class="mb-2">
+        <input type="text" class="form-control" placeholder="Rue" [(ngModel)]="address.street">
+      </div>
+      <div class="mb-2">
+        <input type="text" class="form-control" placeholder="Ville" [(ngModel)]="address.city">
+      </div>
+      <div class="mb-2">
+        <input type="text" class="form-control" placeholder="Pays" [(ngModel)]="address.country">
+      </div>
+      <div class="mb-2">
+        <input type="text" class="form-control" placeholder="Code Postal" [(ngModel)]="address.zipCode">
+      </div>
+      <div class="mb-2">
+        <input type="password" class="form-control" placeholder="Mot de passe" [(ngModel)]="userDto.password">
+      </div>
+
+      <!--
+      <div class="mb-2">
+        <input type="password" class="form-control" placeholder="Confirm The Password">
+      </div>
+      -->
+
+      <div class="mb-1 d-flex justify-content-between">
+        <button (click)="register()" type="submit" class="btn btn-success ms-5"><em class="fas fa-check" ></em>&nbsp;Register</button>
+        <a [routerLink]="'/store/login'" class="btn btn-link me-5" >Sign in</a>
+      </div>
+    </div>
+  </div>
+</div>

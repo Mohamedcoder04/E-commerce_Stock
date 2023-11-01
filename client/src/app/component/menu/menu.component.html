@@ -1,0 +1,30 @@
+<div class="accordion accordion-flush" id="accordionExample">
+  <div class="card p-0" *ngFor="let menu of menuProperties">
+    <button class="btn btn-group-lg p-0 text-start" style="color: dodgerblue !important;" type="button" data-bs-toggle="collapse"
+            aria-expanded="true"
+            [attr.data-bs-target]="'#collapse' + menu.id"
+            aria-controls="collapseOne"
+
+    >
+      <div class="card-header pt-3 pb-3" id="menu{{menu.id}}">
+
+          <i class="{{menu.icon}}">&nbsp;</i>
+          {{menu.titre}}
+
+      </div>
+
+    </button>
+    <div id="collapse{{menu.id}}" class="accordion-collapse collapse  " [attr.aria-labelledby]="'menu'+menu.id"
+         data-bs-parent="#accordionExample">
+      <div class="card">
+        <ul class="list-group list-group-flush"  *ngFor="let sousMenu of menu.sousMenu">
+          <button *ngIf="!sousMenu.isAdminMenu || role === 'admin'" class="btn btn-close-white text-start ps-3" (click)="navigate(sousMenu)" [ngClass]="{ 'text-white bg-primary' : sousMenu.active, '' : !sousMenu.active }" >
+              <em class="{{sousMenu.icon}}">&nbsp;</em>
+              {{sousMenu.titre}}
+          </button>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+

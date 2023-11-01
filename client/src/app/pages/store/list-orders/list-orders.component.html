@@ -1,0 +1,134 @@
+<div class="list-orders card p-4 mt-3 container">
+  <div class="title row">
+    <div class="col-md-12 text-center">
+      <p>Mes Produits</p>
+    </div>
+  </div>
+  <hr>
+
+  <div *ngIf="fetchError" class="row">
+    <div class="col-md-12">
+      <div class="alert-warning">An error occurred. Please try again.</div>
+    </div>
+  </div>
+
+  <div *ngIf="noOrders" class="row">
+    <div class="col-md-12">
+      <p class="no-order">You do not have any orders. <a routerLink="/browse">Browse now!</a></p>
+    </div>
+  </div>
+
+  <div *ngIf="innerLoading" class="loader"></div>
+
+  <div *ngIf="!fetchError" class="row">
+    <div *ngFor="let order of orders | paginate : {itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index " class="order p-3 bg-main col-md-12">
+      <div class="order-title">
+        <div class="row">
+          <div class="col-md-3">
+            <p>ORDER : <span> &nbsp; #{{order.id}}</span></p>
+          </div>
+          <div class="date col-md-6">
+            <p>DATE : <span>&nbsp;{{order.dateCommande }}</span></p>
+          </div>
+          <div class="status col-md-3">
+            <p>STATUS : <span>&nbsp;{{order.etatCommande }}</span></p>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row"
+           [class.pb-3]="order && order.ligneCommandeClients && order.ligneCommandeClients.length > 1"
+      >
+        <div class="col-md-5 left-panel">
+          <div class="row">
+            <div class="col-md-6 col-6">
+              <p>
+                Name:
+                <span>{{order.livraisonInfoDto?.prenom + ' ' + order.livraisonInfoDto?.nom}}</span>
+              </p>
+            </div>
+            <div class="col-md-6 col-6">
+              <p>Phone: <span>{{order.livraisonInfoDto?.telephone}}</span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-6">
+              <p>Country: <span>{{order.livraisonInfoDto?.addressDto?.country}}</span></p>
+            </div>
+            <div class="col-md-6 col-6">
+              <p>City: <span>{{order.livraisonInfoDto?.addressDto?.city}}</span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-6">
+              <p>Street: <span>{{order.livraisonInfoDto?.addressDto?.street}}</span></p>
+            </div>
+            <div class="col-md-6 col-6">
+              <p>Zip Code: <span>{{order.livraisonInfoDto?.addressDto?.zipCode}}</span></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-6">
+              <p>Cargo Price: <span> 0 €</span></p>
+            </div>
+            <div class="col-md-6 col-6">
+              <p>Final Price: <span> {{ order.id && totauxParCommande[order.id]}} €</span></p>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-7 right-panel">
+          <div class="row item-list">
+            <div *ngFor="let ligne of order.ligneCommandeClients" class="col-md-12 ">
+              <div class="row col-md-12 pb-2 border-bottom mb-3">
+                <div class="col-md-10 details">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <p class="product-name">{{ligne.productDto?.codeProduit}}</p>
+                    </div>
+                    <div class="col-md-2">
+                      <p class="price">{{ligne.productDto?.prixUnitaireHt}} €</p>
+                    </div>
+                    <div class="col-md-1">
+                      <p class="price">x{{ligne.quantite}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2 text-end item" >
+                  <img (click)="goToItem(ligne.productDto?.id)" src="{{ligne.productDto?.photo}}" alt="{{ligne.productDto?.codeProduit}}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-8 row">
+                <div class="col-md-6 text-end"
+                     style="font-size: 16px;font-weight: bold;color: black;"
+                >
+                  Tracking Number :
+                </div>
+                <div class="col-md-6 text-start" style="font-size: 16px;font-weight: bold;color: #17a2b8;">
+                  {{ order.trackingNumber }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-3">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+
+    </pagination-controls>
+  </div>
+
+</div>

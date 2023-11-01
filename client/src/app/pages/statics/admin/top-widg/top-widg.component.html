@@ -1,0 +1,29 @@
+<div class="widget-container me-3 ms-1 mt-1 justify-content-between">
+  <div class="widget green  bg-main">
+    <div class="icon blue">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    </div>
+    <div class="value">
+      <div class="top">{{ ordersNumber }}</div>
+      <div class="bottom">Sales</div>
+    </div>
+  </div>
+  <div class="widget yellow  bg-main">
+    <div class="icon green">
+      <em class="fa fa-usd"></em>
+    </div>
+    <div class="value">
+      <div class="top">$ {{ totalPaiements | number   }}</div>
+      <div class="bottom">revenue</div>
+    </div>
+  </div>
+  <div class="widget red  bg-main">
+    <div class="icon warning">
+      <em class="fas fa-user-group"></em>
+    </div>
+    <div class="value">
+      <div class="top">{{nomberUsers}}</div>
+      <div class="bottom">Customers</div>
+    </div>
+  </div>
+</div>

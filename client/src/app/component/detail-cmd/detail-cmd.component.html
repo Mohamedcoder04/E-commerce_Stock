@@ -1,0 +1,23 @@
+<div class="row m-1 custom-border pt-1 pb-1 ">
+  <div class="col-md-3 border-right text-center pt-1">
+    <div class="col-md-11"> {{ ligneCommande.productDto?.codeProduit}} </div>
+  </div>
+
+  <div class="col-md-4 border-right text-center pt-1">
+    <div class="col-md-11">{{ ligneCommande.productDto?.designation ? ligneCommande.productDto?.designation.substring(0,60)+'...' : ''}}</div>
+  </div>
+
+  <div class="col-md-1 border-right text-center pt-3">
+    <div class="col-md-12 ">
+      {{ ligneCommande.quantite}}
+    </div>
+  </div>
+
+  <div class="col-md-2 border-right text-center pt-3">
+    ${{ ligneCommande.productDto?.prixUnitaireHt | number}}
+  </div>
+
+  <div class="col-md-2 text-center pt-3">
+      ${{ ligneCommande.prixUnitaire | number }}
+  </div>
+</div>

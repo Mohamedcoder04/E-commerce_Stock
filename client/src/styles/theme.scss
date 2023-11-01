@@ -1,0 +1,20 @@
+$theme-colors: (
+  "primary-color": rgb(241, 241, 241),
+  "secondary-color": rgb(255, 255, 255),
+  "tertiary-color": rgb(23, 23, 36),
+  "quaternary-color": rgb(86, 89, 89),
+  "green-color-first": rgb(44, 228, 248),
+  "green-color-second": rgb(50, 189, 54),
+  "white-ice-color": rgb(234, 234, 234),
+  "light-gray-color": rgb(102, 102, 102),
+  "light-blue-color": rgb(38, 123, 227),
+);
+
+$font-weight: (
+  "light": 300,
+  "regular": 400,
+  "bold": 700,
+);
+
+$global-border-radius: 4px;
+$global-transition: all 0.2s ease-in-out;

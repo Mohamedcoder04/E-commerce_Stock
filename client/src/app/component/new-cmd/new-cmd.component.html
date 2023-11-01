@@ -1,0 +1,117 @@
+<div class="col p-3">
+  <div class="col-md-12">
+    <h2 class="text-start"> Nouvelle commande {{ origin }} </h2>
+  </div>
+  <div class="alert alert-danger" *ngIf="errorMsg.length">
+    <p *ngFor="let msg of errorMsg"> {{ msg }} </p>
+  </div>
+  <div class="custom-border p-3 mb-1">
+    <div class="row">
+      <div class="col-md-4 border-right">
+        <div class="mb-4 mt-1 mt-1">
+          <input class="form-control" type="text" placeholder="code de la commande" [(ngModel)]="codeCommande">
+        </div>
+
+        <div class="mb-2">
+          <select class="form-control form-select" [(ngModel)]="cltFrs">
+            <option disabled>Selectionner un {{ origin }} </option>
+            <option *ngFor="let o of listCltFrs" [ngValue]="o">
+              {{o.nom}}&nbsp;{{o.prenom}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-6 border-right" *ngIf="cltFrs.nom">
+        <div class="row mt-1 mb-1">
+          <div class="col-md-1">
+            <em class="fas fa-user blue-color"></em>&nbsp;
+          </div>
+          <div class="col-md-11">
+            {{ cltFrs.prenom }}&nbsp;{{ cltFrs.nom }}
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <div class="col-md-1">
+            <em class="fas fa-square-envelope blue-color"></em>&nbsp;
+          </div>
+          <div class="col-md-11">
+            {{ cltFrs.email}}
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <div class="col-md-1">
+            <em class="fas fa-phone blue-color"></em>&nbsp;
+          </div>
+          <div class="col-md-11">
+            {{ cltFrs.telephone }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1">
+            <em class="fas fa-hourglass-half blue-color"></em>&nbsp;
+          </div>
+          <div class="col-md-11">
+            En préparation
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2 text-center mt-3" *ngIf="cltFrs.nom">
+        <img [src]="cltFrs.photo ? cltFrs.photo : 'assets/inconnu.png'" class="rounded-circle" height="100px">
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-3 mb-1">
+    <div class="row">
+      <div class="col-md-4">
+        <input class="form-control" type="text" placeholder="code article" [(ngModel)]="codeProduct" (input)="chercheArticle()">
+        <div *ngIf="codeProduct.length && !productNotSelected" class="autocomplete shadow p-3 mb-5 bg-white rounded">
+          <p class="p-1" *ngFor="let a of listArticles"
+            (click)="selectCodeArticle(a)"
+          >
+            {{ a.codeProduit }}&nbsp;{{ a.designation }}
+          </p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" type="text" placeholder="quantite" [(ngModel)]="quantite">
+      </div>
+      <div class="col-md-3">
+        <input class="form-control" type="text" placeholder="montant" [(ngModel)]="searchedProduct.prixUnitaireHt">
+      </div>
+      <div class="col-md-2 text-center">
+        <button class="btn btn-success" (click)="addLigneCommande()">
+          <em class="fas fa-plus"></em>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-3 mb-3">
+    <div style="max-height: 200px; overflow-y: scroll">
+      <app-detail-cmd *ngFor="let l of listLigneCommande" [ligneCommande]="l"></app-detail-cmd>
+    </div>
+    <div class="card-footer">
+      <div class="col-md-11 text-end">
+        <strong>Total des commande : {{total | number }} $</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-danger" type="button" (click)="annulerCmd()">
+      <em class="fas fa-cancel"></em>&nbsp;Annuler
+    </button>
+    <button class="btn btn-primary ms-3 me-3" type="button" (click)="saveCommande()">
+      <em class="fas fa-save"></em>&nbsp;Enregistrer
+    </button>
+  </div>
+
+
+
+</div>

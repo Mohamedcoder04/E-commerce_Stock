@@ -1,0 +1,59 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-7 p-0">
+      <h1>Liste des Clients</h1>
+    </div>
+
+    <!--
+    <div class="col-md-5 mt-2 justify-content-between">
+      <app-button-actions
+                (clickEvent)="nouvelClient()"
+      >
+      </app-button-actions>
+    </div>
+
+  -->
+  </div>
+  <!--
+    <div class="col-md-5 justify-content-between">
+      <div class="d-flex">
+        <div class="p-2 flex-fill">
+          <button (click)="inputFile.click()" class="btn btn-warning" type="button">
+            <input hidden #inputFile type="file" (change)="importData($event)">
+            <i class="fas fa-upload"></i>&nbsp; Importer
+          </button>
+        </div>
+
+        <div class="p-2 flex-fill">
+          <button class="btn btn-success" type="button" (click)="exportexcel()">
+            <em class="fas fa-cloud-download-alt"></em>&nbsp;Exporter
+          </button>
+        </div>
+
+        <div class="p-2 flex-fill">
+          <button (click)="nouvelClient()" class="btn btn-primary" type="button">
+            <em class="fas fa-plus"></em>&nbsp;Nouveau
+          </button>
+        </div>
+      </div>
+    </div>
+    -->
+    <div class="col m-3">
+      <app-detail-client-fournisseur
+        *ngFor="let c of listClients | paginate : {itemsPerPage : tableSize, currentPage : page, totalItems : count}; let i index"
+        [cltFrsDto]="c"
+        [origin]="'client'"
+        (supressionCltFrs)="deleteClient($event)"
+      ></app-detail-client-fournisseur>
+    </div>
+
+    <div class="row col-md-12 text-center mb-4" *ngIf="listClients.length">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+      >
+
+      </pagination-controls>
+    </div>
+  </div>

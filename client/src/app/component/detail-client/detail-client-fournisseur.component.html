@@ -1,0 +1,94 @@
+<div class="row m-1 custom-border pt-1 pb-1">
+  <div class="col-md-1 p-2 text-center border-right">
+    <img [src]="cltFrsDto.photo ? cltFrsDto.photo : 'assets/inconnu.png'" width="80px">
+  </div>
+
+  <!-- Détail client -->
+  <div class="col-md-4 border-right mt-2">
+    <div class="col">
+      <div class="d-flex flex-row mb-2">
+        <div class="col-md-1"><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="col-md-11">Nom : {{ cltFrsDto.nom }} </div>
+      </div>
+      <div class="d-flex flex-row mb-2">
+        <div class="col-md-1"><i class="fas fa-info-circle  blue-color"></i></div>
+        <div class="col-md-11">Prénom : {{ cltFrsDto.prenom }}</div>
+      </div>
+      <div class="d-flex flex-row mb-2">
+        <div class="col-md-1 "><i class="fas fa-phone  blue-color"></i></div>
+        <div class="col-md-11">Téléphone : {{ cltFrsDto.telephone ? cltFrsDto.telephone : '06XXXXXXXX' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- adresse client -->
+
+  <div class="col-md-4 border-right mt-2">
+    <div class="row ">
+      <div class="col-md-12 mb-2">
+        <div class="row">
+          <div class="col-md-1">
+            <i class="fas fa-home blue-color"></i>
+          </div>
+          <div class="col-md-11"> Adresse : {{ cltFrsDto.address?.street }}</div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-2">
+        <div class="row">
+          <div class="col-md-1">
+            <i class="fas fa-map-marker-alt blue-color"></i>
+          </div>
+          <div class="col-md-11"> {{ cltFrsDto.address?.zipCode }} &nbsp; {{ cltFrsDto.address?.city }} </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-1">
+            <i class="fas fa-globe-africa blue-color"></i>
+          </div>
+          <div class="col-md-11"> Pays : {{ cltFrsDto.address?.country }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Button d'actions -->
+  <div class="col-md-3 ">
+    <div class="mt-4 col-md-6 mx-auto justify-content-between">
+        <button class="btn btn-warning me-3" type="button" (click)="updateCltFrs()" *ngIf="origin === 'fournisseur'">
+          <em class="fas fa-pencil-alt"></em>&nbsp;
+        </button>
+        <button class="btn btn-danger" type="button" data-bs-toggle="modal" [attr.data-bs-target]="'#staticBackdrop'+cltFrsDto.id">
+          <em class="fas fa-trash"></em>
+        </button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop{{cltFrsDto.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Confirm!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Voulez vous vraiment supprimer ce {{origin}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <em class="fas fa-ban"></em>&nbsp;Annuler
+          </button>
+          <button (click)="deleteCltFrs()" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+            <em class="fas fa-trash"></em>&nbsp;Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
